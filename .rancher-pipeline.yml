@@ -1,0 +1,10 @@
+stages:
+- name: Build
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: botapp/docker-for-telegram-bot:${CICD_EXECUTION_SEQUENCE}
+      registry: 127.0.0.1:34544
+timeout: 60
+notification: {}
