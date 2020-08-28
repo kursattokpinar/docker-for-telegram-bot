@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-for-telegram-bot-deployment
+  namespace: tarcinapp-test
+  labels:
+    app: docker-for-telegram-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-for-telegram-bot
+  template:
+    metadata:
+      labels:
+        app: docker-for-telegram-bot
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: docker-for-telegram-bot-container
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        env:
+        - name: TELEGRAM_BOT_TOKEN
+          value: "1395930081:AAEqWrDbPSI9Q2AEZg1Efhc6F4N6RuHjMlM"
+        - name: TELEGRAM_ADMIN_ID
+          value: "139042992"
